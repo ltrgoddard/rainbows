@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&family=IBM+Plex+Mono:wght@400&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #f5f3ef;
+  --fg: #1a1a1a;
+  --mid: #888;
+  --faint: #ccc;
+  --line: #ddd;
+  --card: #fff;
+  --card-border: #e4e0db;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  grid-template-rows: 1fr;
+}
+
+/* ── Map ─────────────────────────── */
+#map-wrap { position: relative; overflow: hidden; }
+#map { height: 100%; width: 100%; }
+
+.leaflet-control-attribution { font-size: 9px !important; opacity: 0.5; }
+.leaflet-control-zoom a {
+  background: var(--card) !important;
+  color: var(--fg) !important;
+  border-color: var(--card-border) !important;
+}
+.leaflet-popup-content-wrapper {
+  background: var(--card) !important;
+  border: 1px solid var(--card-border) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+  color: var(--fg) !important;
+}
+.leaflet-popup-content {
+  font-family: 'IBM Plex Sans', sans-serif !important;
+  font-size: 11px !important;
+  line-height: 1.6 !important;
+  margin: 10px 12px !important;
+}
+.leaflet-popup-tip { background: var(--card) !important; }
+
+/* ── Panel ───────────────────────── */
+.panel {
+  height: 100vh;
+  overflow-y: auto;
+  padding: 36px 32px 48px;
+  border-left: 1px solid var(--line);
+  background: var(--bg);
+  scrollbar-width: thin;
+  scrollbar-color: var(--faint) transparent;
+}
+.panel::-webkit-scrollbar { width: 4px; }
+.panel::-webkit-scrollbar-thumb { background: var(--faint); border-radius: 2px; }
+
+h1 {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.subtitle {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--mid);
+  margin-bottom: 32px;
+}
+
+.section { margin-bottom: 32px; }
+.section-label {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ── Compass & Sun arc ───────────── */
+.compass-wrap { display: flex; justify-content: center; margin: 4px 0; }
+.compass-wrap canvas { width: 220px; height: 220px; }
+.arc-wrap { display: flex; justify-content: center; margin: 4px 0; }
+.arc-wrap canvas { width: 100%; max-width: 340px; height: 140px; }
+
+/* ── Session cards ───────────────── */
+.session {
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  background: var(--card);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.session:hover { border-color: #bbb; }
+.session.active {
+  border-color: var(--fg);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.session-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.session-date { font-size: 13px; font-weight: 500; }
+.session-meta { font-size: 10px; color: var(--mid); }
+.session-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px 14px;
+  font-size: 11px;
+}
+.mk { color: var(--mid); font-weight: 300; }
+.mv { text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 10px; }
+.tag {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border: 1px solid var(--card-border);
+  border-radius: 3px;
+  color: var(--mid);
+}
+
+/* ── Photo strip ─────────────────── */
+.photo-strip {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.photo-strip::-webkit-scrollbar { display: none; }
+.photo-strip img {
+  height: 64px;
+  width: auto;
+  border-radius: 4px;
+  border: 1px solid var(--card-border);
+  object-fit: cover;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+.photo-strip img:hover { opacity: 0.75; }
+
+/* ── Lightbox ────────────────────── */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(245,243,239,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.lightbox.open { display: flex; }
+.lightbox img {
+  max-width: 85vw;
+  max-height: 85vh;
+  border-radius: 6px;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+}
+.lightbox-caption {
+  position: absolute;
+  bottom: 32px;
+  font-size: 11px;
+  color: var(--mid);
+  text-align: center;
+}
+
+/* ── Insight ─────────────────────── */
+.insight {
+  font-size: 11px;
+  line-height: 1.75;
+  color: #666;
+  font-weight: 300;
+  border-left: 2px solid var(--line);
+  padding-left: 12px;
+  margin-top: 10px;
+}
+.insight strong { color: var(--fg); font-weight: 500; }

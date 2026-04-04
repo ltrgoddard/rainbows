@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rainbow Conditions</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+<div id="map-wrap"><div id="map"></div></div>
+
+<div class="panel">
+  <h1>Rainbow Conditions</h1>
+  <p class="subtitle" id="subtitle">Loading&hellip;</p>
+
+  <div class="section">
+    <div class="section-label">Sessions</div>
+    <div id="sessions"></div>
+  </div>
+
+</div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
+  <img id="lb-img" src="" alt="">
+  <div class="lightbox-caption" id="lb-caption"></div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
