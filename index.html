@@ -4,30 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>rainbow conditions</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌈</text></svg>">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-
 <div id="map-wrap"><div id="map"></div></div>
-
 <div class="panel">
   <h1>rainbow conditions</h1>
-  <p class="subtitle" id="subtitle">loading&hellip;</p>
-
-  <div class="section">
-    <div class="section-label">sessions</div>
-    <div id="sessions"></div>
-  </div>
-
+  <p class="sub" id="sub">loading&hellip;</p>
+  <div class="label">sessions</div>
+  <div id="sessions"></div>
 </div>
-
-<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
-  <img id="lb-img" src="" alt="">
-  <div class="lightbox-caption" id="lb-caption"></div>
-</div>
-
-<script type="module" src="js/main.js"></script>
+<div class="lb" id="lb"><img id="lb-img" src="" alt=""><div class="lb-cap" id="lb-cap"></div></div>
+<script src="app.js" type="module"></script>
 </body>
 </html>
