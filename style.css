@@ -199,3 +199,50 @@ h1 {
   margin-top: 10px;
 }
 .insight strong { color: var(--fg); font-weight: 500; }
+
+/* ── Map markers ─────────────────── */
+.map-marker {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--card); border: 1.5px solid var(--fg);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+.gold-marker {
+  font-size: 16px;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+  cursor: help;
+}
+
+/* ── Popup ───────────────────────── */
+.popup-body { min-width: 200px; }
+.popup-thumb { width: 100%; border-radius: 4px; margin-bottom: 8px; }
+.popup-date { font-weight: 500; font-size: 12px; margin-bottom: 6px; }
+.popup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 12px;
+  font-size: 10px;
+}
+.popup-tag {
+  margin-top: 6px;
+  font-size: 9px;
+  color: var(--mid);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Mobile ──────────────────────── */
+@media (max-width: 768px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-rows: 50vh 1fr;
+  }
+  .panel {
+    height: auto;
+    border-left: none;
+    border-top: 1px solid var(--line);
+    padding: 20px 16px 32px;
+  }
+  h1 { font-size: 14px; }
+  .session-grid { gap: 2px 10px; font-size: 10px; }
+  .photo-strip img { height: 52px; }
+}

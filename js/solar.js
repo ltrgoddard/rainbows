@@ -47,5 +47,5 @@ export function groupSessions(photos) {
       const dt = new Date(f.taken_at.replace(' ', 'T') + 'Z');
       return { date, items, sun: solarPosition(f.latitude, f.longitude, dt), weather: f };
     })
-    .sort((a, b) => a.date.localeCompare(b.date));
+    .sort((a, b) => b.date.localeCompare(a.date));
 }

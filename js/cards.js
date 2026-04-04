@@ -21,7 +21,7 @@ export function buildSessionCards(sessions, map, sessionLayers) {
     if (si === 0) card.classList.add('active');
     card.innerHTML = `
       <div class="session-head">
-        <span class="session-date">${si + 1}. ${dateStr}</span>
+        <span class="session-date">${dateStr}</span>
         <span class="session-meta">${s.items.length} &middot; ${timeRange}</span>
       </div>
       <div class="session-grid">

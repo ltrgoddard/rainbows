@@ -36,13 +36,7 @@ export function buildSessionLayers(sessions) {
 function addSessionMarker(map, s, si, avgLat, avgLon) {
   const icon = L.divIcon({
     className: '',
-    html: `<div style="
-      width:22px;height:22px;border-radius:50%;
-      background:#fff;border:1.5px solid #1a1a1a;
-      display:flex;align-items:center;justify-content:center;
-      font:500 10px/1 'IBM Plex Sans',sans-serif;color:#1a1a1a;
-      box-shadow:0 1px 4px rgba(0,0,0,0.1);
-    ">${si + 1}</div>`,
+    html: `<div class="map-marker"></div>`,
     iconSize: [22, 22],
     iconAnchor: [11, 11],
   });
@@ -55,18 +49,18 @@ function addSessionMarker(map, s, si, avgLat, avgLon) {
   const facingStr = isNaN(avgBearing) ? '?' : avgBearing.toFixed(0) + '°';
 
   const popup = `
-    <div style="min-width:200px">
-      <img src="${thumb}" style="width:100%;border-radius:4px;margin-bottom:8px;" onerror="this.style.display='none'">
-      <div style="font-weight:500;font-size:12px;margin-bottom:6px;">${dateStr}</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;font-size:10px;">
-        <span style="color:#888">Temp</span><span style="text-align:right">${s.weather.temperature_c}&deg;C</span>
-        <span style="color:#888">Humidity</span><span style="text-align:right">${s.weather.relative_humidity}%</span>
-        <span style="color:#888">Wind</span><span style="text-align:right">${s.weather.wind_speed_kmh} km/h</span>
-        <span style="color:#888">Facing</span><span style="text-align:right">${facingStr}</span>
-        <span style="color:#888">Sun</span><span style="text-align:right">${s.sun.elevation.toFixed(1)}&deg; el, ${s.sun.azimuth.toFixed(0)}&deg; az</span>
-        <span style="color:#888">Altitude</span><span style="text-align:right">${Math.round(s.items[0].altitude_m || 0)}m</span>
+    <div class="popup-body">
+      <img class="popup-thumb" src="${thumb}" onerror="this.style.display='none'">
+      <div class="popup-date">${dateStr}</div>
+      <div class="popup-grid">
+        <span class="mk">Temp</span><span class="mv">${s.weather.temperature_c}&deg;C</span>
+        <span class="mk">Humidity</span><span class="mv">${s.weather.relative_humidity}%</span>
+        <span class="mk">Wind</span><span class="mv">${s.weather.wind_speed_kmh} km/h</span>
+        <span class="mk">Facing</span><span class="mv">${facingStr}</span>
+        <span class="mk">Sun</span><span class="mv">${s.sun.elevation.toFixed(1)}&deg; el, ${s.sun.azimuth.toFixed(0)}&deg; az</span>
+        <span class="mk">Altitude</span><span class="mv">${Math.round(s.items[0].altitude_m || 0)}m</span>
       </div>
-      <div style="margin-top:6px;font-size:9px;color:#888;text-transform:uppercase;letter-spacing:0.06em">
+      <div class="popup-tag">
         ${weatherLabels[s.weather.weather_code]} &middot; ${s.items.length} photo${s.items.length > 1 ? 's' : ''}
       </div>
     </div>`;
@@ -195,7 +189,7 @@ function addPotOfGold(map, s, avgLat, avgLon) {
   const goldIcon = (label) =>
     L.divIcon({
       className: '',
-      html: `<div style="font-size:16px;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.2));cursor:help;" title="${label}">\uD83D\uDCB0</div>`,
+      html: `<div class="gold-marker" title="${label}">\uD83D\uDCB0</div>`,
       iconSize: [20, 20],
       iconAnchor: [10, 10],
     });
