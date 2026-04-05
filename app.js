@@ -167,7 +167,7 @@ fetch('data/rainbow_data.json').then(r => r.json()).then(photos => {
     layers.push(l);
     cards.push(c);
     c.addEventListener('click', e => {
-      if (e.target.classList.contains('hero')) {
+      if (e.target.classList.contains('hero') && window.innerWidth > 768) {
         document.getElementById('lb-img').src = e.target.src;
         document.getElementById('lb-cap').textContent = e.target.dataset.file;
         document.getElementById('lb').classList.add('open');
