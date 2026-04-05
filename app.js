@@ -269,6 +269,7 @@ function showDetail(filename) {
   detailImg.src = 'photos_web/' + filename;
   detail.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+  document.getElementById('detail-head').textContent = '';
   meta.innerHTML = '<div class="loading"><span class="spinner"></span>reading exif &amp; fetching data\u2026</div>';
 
   // clear map
@@ -297,7 +298,8 @@ function renderMeta(data) {
   const facing = bearing ? `${bearing.toFixed(0)}\u00b0 ${compass(bearing)}` : '\u2014';
   const rbPeak = Math.max(0, 42 - s.elevation).toFixed(0);
 
-  let html = `<div class="head">${date} \u00b7 ${time} utc</div>`;
+  document.getElementById('detail-head').textContent = `${date} \u00b7 ${time} utc`;
+  let html = '';
   const rows = [
     ['facing', facing],
     ['altitude', `${Math.round(exif.altitude_m)}m`],
