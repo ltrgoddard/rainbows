@@ -113,6 +113,11 @@ function card(entry) {
 
   const el = document.createElement('div');
   el.className = 'photo-card';
+  const sunEl = entry.sun.elevation.toFixed(1);
+  const sunAz = entry.sun.azimuth.toFixed(0);
+  const rbAz = entry.sun.antiSolarAz.toFixed(0);
+  const rbPeak = Math.max(0, 42 - entry.sun.elevation).toFixed(0);
+
   el.innerHTML = `
     <img class="hero" src="${jpg(p.filename)}" data-file="${p.filename}" loading="lazy">
     <div class="card-body">
@@ -124,10 +129,13 @@ function card(entry) {
         <span class="k">precip</span><span class="v">${p.precipitation_mm} mm</span>
         <span class="k">facing</span><span class="v">${facing}</span>
         <span class="k">altitude</span><span class="v">${Math.round(p.altitude_m || 0)}m</span>
-        <span class="k">sun</span><span class="v">${entry.sun.elevation.toFixed(1)}\u00b0 el \u00b7 ${entry.sun.azimuth.toFixed(0)}\u00b0 az</span>
-        <span class="k">rainbow</span><span class="v">${entry.sun.antiSolarAz.toFixed(0)}\u00b0 az \u00b7 ${Math.max(0, 42 - entry.sun.elevation).toFixed(0)}\u00b0 peak</span>
+        <span class="k">sun</span><span class="v">${sunEl}\u00b0 el \u00b7 ${sunAz}\u00b0 az</span>
+        <span class="k">rainbow</span><span class="v">${rbAz}\u00b0 az \u00b7 ${rbPeak}\u00b0 peak</span>
       </div>
-      <span class="tag">${WEATHER[p.weather_code] || 'wmo ' + p.weather_code}</span>
+      <div class="compact-summary">
+        ${p.temperature_c}\u00b0c \u00b7 ${p.wind_speed_kmh}km/h ${compass(p.wind_direction_deg)} \u00b7 ${p.precipitation_mm}mm \u00b7 facing ${facing}<br>
+        sun ${sunEl}\u00b0el ${sunAz}\u00b0az \u00b7 rainbow ${rbAz}\u00b0az ${rbPeak}\u00b0 peak
+      </div>
     </div>`;
   return el;
 }
