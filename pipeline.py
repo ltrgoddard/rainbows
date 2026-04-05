@@ -26,8 +26,8 @@ import duckdb
 import httpx
 
 ROOT = Path(__file__).parent
-PHOTOS_DIR = ROOT / "photos"
-WEB_DIR = ROOT / "photos_web"
+PHOTOS_DIR = ROOT / "photos" / "raw"
+WEB_DIR = ROOT / "photos" / "web"
 DATA_DIR = ROOT / "data"
 DB_PATH = DATA_DIR / "rainbows.duckdb"
 

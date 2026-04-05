@@ -2,6 +2,7 @@ import exifr from 'https://cdn.jsdelivr.net/npm/exifr@7.1.3/dist/full.esm.mjs';
 
 // photo filenames — add new photos here
 const PHOTOS = [
+  'IMG_6879.jpg','IMG_6878.jpg','IMG_6877.jpg','IMG_1783.jpg','IMG_1779.jpg',
   'IMG_6856.jpg','IMG_6855.jpg','IMG_6622.jpg','IMG_6168.jpg','IMG_6167.jpg',
   'IMG_6052.jpg','IMG_6051.jpg','IMG_5953.jpg','IMG_5952.jpg','IMG_5951.jpg',
   'IMG_5950.jpg','IMG_5825.jpg','IMG_5743.jpg','IMG_5742.jpg','IMG_5741.jpg',
@@ -163,7 +164,7 @@ async function fetchWeather(lat, lon, dt) {
 async function computeAll(filename) {
   if (cache.has(filename)) return cache.get(filename);
 
-  const exif = await readExif('photos_web/' + filename);
+  const exif = await readExif('photos/web/' + filename);
   if (!exif) { cache.set(filename, null); return null; }
 
   const s = sun(exif.latitude, exif.longitude, exif.taken_at);
@@ -266,7 +267,7 @@ const detailImg = document.getElementById('detail-img');
 const meta = document.getElementById('meta');
 
 function showDetail(filename) {
-  detailImg.src = 'photos_web/' + filename;
+  detailImg.src = 'photos/web/' + filename;
   detail.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
   document.getElementById('detail-head').textContent = '';
@@ -335,7 +336,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') hideDetail()
 const gallery = document.getElementById('gallery');
 PHOTOS.forEach(filename => {
   const img = document.createElement('img');
-  img.src = 'photos_web/' + filename;
+  img.src = 'photos/web/' + filename;
   img.loading = 'lazy';
   img.alt = filename;
   img.addEventListener('click', () => showDetail(filename));
