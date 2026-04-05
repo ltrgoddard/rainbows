@@ -29,21 +29,20 @@ h1 { font-size: 15px; font-weight: 500; letter-spacing: .06em; margin-bottom: 2p
 .sub { font-size: 11px; font-weight: 300; color: var(--mid); margin-bottom: 28px; }
 .label { font-size: 9px; font-weight: 500; letter-spacing: .12em; color: var(--mid); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
 
-/* session cards */
-.session { border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; margin-bottom: 8px; background: var(--card); cursor: pointer; transition: border-color .15s; }
-.session:hover { border-color: #bbb; }
-.session.active { border-color: var(--fg); box-shadow: 0 1px 6px rgba(0,0,0,.06); }
+/* photo cards */
+.photo-card { border: 1px solid var(--border); border-radius: 6px; margin-bottom: 10px; background: var(--card); cursor: pointer; transition: border-color .15s; overflow: hidden; }
+.photo-card:hover { border-color: #bbb; }
+.photo-card.active { border-color: var(--fg); box-shadow: 0 1px 6px rgba(0,0,0,.06); }
+.hero { width: 100%; display: block; aspect-ratio: 4/3; object-fit: cover; cursor: pointer; transition: opacity .15s; }
+.hero:hover { opacity: .85; }
+.card-body { padding: 10px 14px 12px; }
 .head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
 .date { font-size: 13px; font-weight: 500; }
-.meta { font-size: 10px; color: var(--mid); }
+.meta { font-size: 10px; color: var(--mid); font-family: 'IBM Plex Mono', monospace; }
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 12px; font-size: 11px; }
 .k { color: var(--mid); font-weight: 300; }
 .v { text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 10px; }
 .tag { display: inline-block; margin-top: 8px; font-size: 9px; font-weight: 500; letter-spacing: .06em; padding: 2px 7px; border: 1px solid var(--border); border-radius: 3px; color: var(--mid); }
-.photos { display: flex; gap: 6px; margin-top: 10px; overflow-x: auto; scrollbar-width: none; }
-.photos::-webkit-scrollbar { display: none; }
-.photos img { height: 60px; border-radius: 4px; border: 1px solid var(--border); cursor: pointer; transition: opacity .15s; flex-shrink: 0; }
-.photos img:hover { opacity: .7; }
 
 /* map markers */
 .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--card); border: 1.5px solid var(--fg); box-shadow: 0 1px 3px rgba(0,0,0,.1); }
@@ -60,5 +59,5 @@ h1 { font-size: 15px; font-weight: 500; letter-spacing: .06em; margin-bottom: 2p
   body { grid-template-columns: 1fr; grid-template-rows: 50vh 1fr; }
   .panel { border-left: none; border-top: 1px solid var(--line); padding: 16px 14px 32px; }
   h1 { font-size: 14px; }
-  .photos img { height: 48px; }
+  .hero { aspect-ratio: 3/2; }
 }
