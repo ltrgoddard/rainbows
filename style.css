@@ -12,31 +12,9 @@ body {
 }
 
 /* header */
-header { padding: 36px 28px 24px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 16px; }
+header { padding: 36px 28px 24px; }
 header h1 { font-size: 15px; font-weight: 500; letter-spacing: .06em; }
-header .sub { font-size: 11px; font-weight: 300; color: var(--mid); margin-top: 2px; flex-basis: 100%; }
-#header-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
-
-/* apple sign-in button */
-.signin-btn {
-  cursor: pointer; display: flex; align-items: center; gap: 6px;
-  padding: 4px 10px; border-radius: 4px;
-  border: 1px solid var(--border); background: var(--card);
-  font-size: 11px; color: var(--fg);
-  transition: background .15s, border-color .15s;
-}
-.signin-btn:hover { border-color: var(--fg); }
-.signin-btn svg { flex-shrink: 0; }
-
-/* upload button */
-.upload-btn {
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 1px solid var(--border); background: var(--card);
-  font-size: 18px; line-height: 1; color: var(--fg);
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: background .15s, border-color .15s;
-}
-.upload-btn:hover { border-color: var(--fg); background: var(--bg); }
+header .sub { font-size: 11px; font-weight: 300; color: var(--mid); margin-top: 2px; }
 
 /* gallery grid */
 #gallery {
@@ -53,7 +31,6 @@ header .sub { font-size: 11px; font-weight: 300; color: var(--mid); margin-top: 
   border: 1px solid var(--border);
 }
 #gallery img:hover { opacity: .85; }
-#gallery img.uploaded { border-color: #d4a017; }
 
 .hidden { display: none !important; }
 

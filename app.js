@@ -2,13 +2,14 @@ import exifr from 'https://cdn.jsdelivr.net/npm/exifr@7.1.3/dist/full.esm.mjs';
 
 // photo filenames — add new photos here
 const PHOTOS = [
-  'IMG_6879.jpg','IMG_6878.jpg','IMG_6877.jpg','IMG_1783.jpg','IMG_1779.jpg',
-  'IMG_6856.jpg','IMG_6855.jpg','IMG_6622.jpg','IMG_6168.jpg','IMG_6167.jpg',
-  'IMG_6052.jpg','IMG_6051.jpg','IMG_5953.jpg','IMG_5952.jpg','IMG_5951.jpg',
-  'IMG_5950.jpg','IMG_5825.jpg','IMG_5743.jpg','IMG_5742.jpg','IMG_5741.jpg',
-  'IMG_5740.jpg','IMG_5739.jpg','IMG_5738.jpg','IMG_5737.jpg','IMG_5736.jpg',
-  'IMG_5710.jpg','IMG_5701.jpg','IMG_5075.jpg','IMG_5074.jpg','IMG_5073.jpg',
-  'IMG_5071.jpg','IMG_4124.jpg','IMG_3860.jpg','IMG_8348.jpg',
+  'IMG_8348.avif','IMG_6879.avif','IMG_6878.avif',
+  'IMG_6877.avif','IMG_6856.avif','IMG_6855.avif','IMG_6622.avif','IMG_6168.avif',
+  'IMG_6167.avif','IMG_6052.avif','IMG_6051.avif','IMG_5953.avif','IMG_5952.avif',
+  'IMG_5951.avif','IMG_5950.avif','IMG_5825.avif','IMG_5743.avif','IMG_5742.avif',
+  'IMG_5741.avif','IMG_5740.avif','IMG_5739.avif','IMG_5738.avif','IMG_5737.avif',
+  'IMG_5736.avif','IMG_5710.avif','IMG_5701.avif','IMG_5075.avif','IMG_5074.avif',
+  'IMG_5073.avif','IMG_5071.avif','IMG_4124.avif','IMG_3860.avif',
+  'IMG_1783.avif','IMG_1779.avif',
 ];
 
 const R = Math.PI / 180;
@@ -17,8 +18,6 @@ const SPECTRUM = ['#e44','#e82','#ec3','#3b3','#39f','#44c','#80a'];
 const compass = d => ['n','ne','e','se','s','sw','w','nw'][Math.round(d / 45) % 8];
 const cache = new Map();
 
-// uploaded photos stored as { filename, objectUrl }
-const uploaded = new Map();
 
 // ── exif ────────────────────────────────────────────────
 
@@ -167,7 +166,7 @@ async function fetchWeather(lat, lon, dt) {
 async function computeAll(filename) {
   if (cache.has(filename)) return cache.get(filename);
 
-  const url = uploaded.has(filename) ? uploaded.get(filename) : 'photos/web/' + filename;
+  const url = 'photos/web/' + filename;
   const exif = await readExif(url);
   if (!exif) { cache.set(filename, null); return null; }
 
@@ -273,7 +272,7 @@ let currentFilename = null;
 
 function showDetail(filename) {
   currentFilename = filename;
-  const src = uploaded.has(filename) ? uploaded.get(filename) : 'photos/web/' + filename;
+  const src = 'photos/web/' + filename;
   detailImg.src = src;
   detail.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
@@ -360,104 +359,12 @@ document.getElementById('copy-link').addEventListener('click', () => {
 function openFromHash() {
   const hash = decodeURIComponent(location.hash.slice(1));
   if (!hash) return;
-  // check if it matches a known photo or uploaded photo
-  if (PHOTOS.includes(hash) || uploaded.has(hash)) {
+  if (PHOTOS.includes(hash)) {
     showDetail(hash);
   }
 }
 
 window.addEventListener('hashchange', openFromHash);
-
-// ── apple sign-in ───────────────────────────────────────
-
-let appleUser = null;
-
-function initAppleSignIn() {
-  const signinBtn = document.getElementById('apple-signin');
-
-  // check for existing session
-  const stored = sessionStorage.getItem('apple_user');
-  if (stored) {
-    appleUser = JSON.parse(stored);
-    onSignedIn();
-    return;
-  }
-
-  signinBtn.addEventListener('click', () => {
-    // use Apple's popup-based auth flow
-    try {
-      AppleID.auth.init({
-        clientId: 'uk.co.ltrg.rainbows', // configure this in Apple Developer portal
-        scope: 'name',
-        redirectURI: location.origin + location.pathname,
-        usePopup: true,
-      });
-      AppleID.auth.signIn().then(response => {
-        appleUser = {
-          id: response.authorization.id_token,
-          name: response.user?.name?.firstName || 'user',
-        };
-        sessionStorage.setItem('apple_user', JSON.stringify(appleUser));
-        onSignedIn();
-      }).catch(() => {
-        // user cancelled or error — show fallback
-        offerGuestUpload();
-      });
-    } catch (e) {
-      // apple JS SDK not loaded or blocked — offer guest upload
-      offerGuestUpload();
-    }
-  });
-}
-
-function offerGuestUpload() {
-  // if apple auth is unavailable, allow upload anyway (for local dev / testing)
-  appleUser = { id: 'guest', name: 'guest' };
-  sessionStorage.setItem('apple_user', JSON.stringify(appleUser));
-  onSignedIn();
-}
-
-function onSignedIn() {
-  document.getElementById('apple-signin').classList.add('hidden');
-  document.getElementById('upload-btn').classList.remove('hidden');
-}
-
-// ── photo upload ────────────────────────────────────────
-
-function initUpload() {
-  const uploadBtn = document.getElementById('upload-btn');
-  const uploadInput = document.getElementById('upload-input');
-
-  uploadBtn.addEventListener('click', () => uploadInput.click());
-
-  uploadInput.addEventListener('change', async () => {
-    const file = uploadInput.files[0];
-    if (!file) return;
-
-    const filename = file.name;
-    const objectUrl = URL.createObjectURL(file);
-    uploaded.set(filename, objectUrl);
-
-    // add to gallery
-    addGalleryImage(filename, objectUrl);
-
-    // open detail view
-    showDetail(filename);
-
-    // reset input so same file can be re-selected
-    uploadInput.value = '';
-  });
-}
-
-function addGalleryImage(filename, src) {
-  const gallery = document.getElementById('gallery');
-  const img = document.createElement('img');
-  img.src = src;
-  img.alt = filename;
-  img.className = 'uploaded';
-  img.addEventListener('click', () => showDetail(filename));
-  gallery.prepend(img);
-}
 
 // ── gallery ─────────────────────────────────────────────
 
@@ -472,9 +379,6 @@ PHOTOS.forEach(filename => {
 });
 
 // ── init ────────────────────────────────────────────────
-
-initAppleSignIn();
-initUpload();
 
 // open deep link on page load (after gallery is built)
 openFromHash();

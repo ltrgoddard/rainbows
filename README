@@ -1,0 +1,53 @@
+rainbow conditions
+==================
+
+solar geometry, weather data and pot-of-gold locations for rainbow
+photos taken in sheffield. reads EXIF from each photo to compute sun
+position, antisolar point, and rainbow arc geometry.
+
+https://ltrg.co.uk/rainbows/
+
+
+how it works
+------------
+
+photos are served as AVIF at 1600px. EXIF GPS and timestamp data are
+read client-side with exifr, then used to calculate sun altitude/azimuth
+and the expected rainbow arc. weather data is fetched from Open-Meteo.
+
+a daily launchd job (scan.sh) searches macOS Photos.app for rainbow
+images using its built-in AI search, exports new finds, converts them
+to AVIF with avifenc, updates app.js, and pushes to deploy via GitHub
+Pages.
+
+
+files
+-----
+
+index.html    page shell
+app.js        all client logic (EXIF, sun maths, weather, gallery, map)
+style.css     styles
+Makefile      HEIC/PNG -> AVIF conversion (sips + avifenc)
+scan.sh       daily photo scan and deploy script
+photos/raw/   original exports from Photos.app (gitignored)
+photos/web/   1600px AVIF web versions
+
+
+dependencies
+------------
+
+avifenc       brew install libavif
+sips          ships with macOS
+leaflet       CDN
+exifr         CDN
+
+
+scan schedule
+-------------
+
+the launchd agent at ~/Library/LaunchAgents/uk.co.ltrg.rainbows.scan.plist
+runs scan.sh daily at 09:00 when the user is logged in. logs go to
+/tmp/rainbows-scan.log.
+
+to exclude false positives from Photos.app search, add the filename
+stem (e.g. IMG_1234) to the EXCLUDE array at the top of scan.sh.
