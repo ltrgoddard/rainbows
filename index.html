@@ -15,16 +15,21 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-<header class="header">
+<header>
   <h1>rainbow conditions</h1>
-  <p class="sub" id="sub">loading&hellip;</p>
+  <p class="sub">sheffield rainbow photos &middot; click for data</p>
 </header>
-<div id="map-wrap"><div id="map"></div></div>
-<div class="panel">
-  <div class="label">photos</div>
-  <div id="sessions"></div>
+<div id="gallery"></div>
+<div id="detail" class="detail hidden">
+  <button id="close" aria-label="close">&times;</button>
+  <div class="detail-inner">
+    <div class="detail-photo"><img id="detail-img" src="" alt=""></div>
+    <div class="detail-info">
+      <div id="meta"></div>
+      <div id="minimap"></div>
+    </div>
+  </div>
 </div>
-<div class="lb" id="lb"><img id="lb-img" src="" alt=""><div class="lb-cap" id="lb-cap"></div></div>
-<script src="app.js" type="module"></script>
+<script type="module" src="app.js"></script>
 </body>
 </html>
