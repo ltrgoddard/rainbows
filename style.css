@@ -61,7 +61,7 @@ h1 { font-size: 15px; font-weight: 500; letter-spacing: .06em; }
 }
 
 /* detail info panel */
-.detail-info { position: sticky; top: 48px; }
+.detail-info { position: sticky; top: 48px; display: flex; flex-direction: column; }
 #meta {
   font-size: 12px; line-height: 1.8;
   margin-bottom: 16px;
@@ -100,10 +100,10 @@ h1 { font-size: 15px; font-weight: 500; letter-spacing: .06em; }
   #gallery img { aspect-ratio: 1; }
   .detail-inner {
     grid-template-columns: 1fr;
-    padding: 14px 14px 32px;
+    padding: 44px 14px 32px;
     gap: 16px;
   }
   .detail-info { position: static; }
-  #minimap { height: 220px; }
+  #minimap { height: 220px; order: -1; margin-bottom: 16px; }
   #close { top: 8px; right: 12px; }
 }

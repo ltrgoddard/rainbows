@@ -256,7 +256,7 @@ function renderMap(data) {
 
   mapLayer = g;
   g.addTo(minimap);
-  minimap.fitBounds(g.getBounds(), { padding: [20, 20] });
+  minimap.fitBounds(g.getBounds(), { padding: [30, 30], maxZoom: 15 });
 }
 
 // ── detail view ─────────────────────────────────────────
