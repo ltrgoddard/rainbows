@@ -1,6 +1,7 @@
 .venv/
 __pycache__/
 photos/raw/
+photos/order.txt
 data/*.csv
 data/*.duckdb
 *.pyc

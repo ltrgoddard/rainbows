@@ -12,9 +12,15 @@ body {
 }
 
 /* header */
-header { padding: 36px 28px 24px; }
+header { padding: 36px 28px 24px; display: flex; justify-content: space-between; align-items: flex-end; }
 header h1 { font-size: 15px; font-weight: 500; letter-spacing: .06em; }
 header .sub { font-size: 11px; font-weight: 300; color: var(--mid); margin-top: 2px; }
+.wordmark {
+  font: 400 28px/1 'Times New Roman', Times, serif;
+  color: var(--fg); text-decoration: none; text-transform: none;
+  letter-spacing: .01em; flex-shrink: 0;
+}
+.wordmark em { font-style: italic; }
 
 /* gallery grid */
 #gallery {
