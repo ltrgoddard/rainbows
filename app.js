@@ -2,10 +2,10 @@ import exifr from 'https://cdn.jsdelivr.net/npm/exifr@7.1.3/dist/full.esm.mjs';
 
 // photo filenames — add new photos here
 const PHOTOS = [
-  'IMG_6879.avif','IMG_6856.avif','IMG_1783.avif','IMG_1779.avif','IMG_6622.avif',
-  'IMG_6168.avif','IMG_8348.avif','IMG_6052.avif','IMG_5952.avif','IMG_5950.avif',
-  'IMG_5825.avif','IMG_5743.avif','IMG_5741.avif','IMG_5737.avif','IMG_5710.avif',
-  'IMG_5701.avif','IMG_5074.avif','IMG_4124.avif','IMG_3860.avif'
+  'IMG_6945.avif','IMG_6879.avif','IMG_6856.avif','IMG_1783.avif','IMG_1779.avif',
+  'IMG_6622.avif','IMG_6168.avif','IMG_8348.avif','IMG_6052.avif','IMG_5952.avif',
+  'IMG_5950.avif','IMG_5825.avif','IMG_5743.avif','IMG_5741.avif','IMG_5737.avif',
+  'IMG_5710.avif','IMG_5701.avif','IMG_5074.avif','IMG_4124.avif','IMG_3860.avif'
 ];
 
 const R = Math.PI / 180;
