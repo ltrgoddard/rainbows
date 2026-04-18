@@ -63,17 +63,19 @@ update: photos
 	@echo "app.js updated ($$(wc -l < photos/order.txt | tr -d ' ') photos)"
 
 # ── scan Photos.app, export, convert, update ───────────
+# NOTE: osascript needs one -e per AppleScript line; a single multi-line -e
+# gets collapsed to one line by make's \-continuations and fails to parse.
 scan:
 	@echo "searching Photos.app for rainbows…"
-	@found=$$(osascript -e ' \
-	  tell application "Photos" \
-	    set results to search for "rainbow" \
-	    set fnames to {} \
-	    repeat with p in results \
-	      set end of fnames to filename of p \
-	    end repeat \
-	    return fnames \
-	  end tell' 2>/dev/null); \
+	@found=$$(osascript \
+	  -e 'tell application "Photos"' \
+	  -e 'set results to search for "rainbow"' \
+	  -e 'set fnames to {}' \
+	  -e 'repeat with p in results' \
+	  -e 'set end of fnames to filename of p' \
+	  -e 'end repeat' \
+	  -e 'return fnames' \
+	  -e 'end tell' 2>/dev/null); \
 	IFS=', ' read -ra all <<< "$$found"; \
 	new=(); \
 	for f in "$${all[@]}"; do \
@@ -87,18 +89,18 @@ scan:
 	filelist=""; \
 	for f in "$${new[@]}"; do filelist+="\"$$f\", "; done; \
 	filelist="$${filelist%, }"; \
-	osascript -e " \
-	  tell application \"Photos\" \
-	    set results to search for \"rainbow\" \
-	    set wanted to {$$filelist} \
-	    set toExport to {} \
-	    repeat with p in results \
-	      if wanted contains (filename of p) then set end of toExport to p \
-	    end repeat \
-	    if (count of toExport) > 0 then \
-	      export toExport to POSIX file \"$$(pwd)/$(RAW)\" with using originals \
-	    end if \
-	  end tell"
+	osascript \
+	  -e 'tell application "Photos"' \
+	  -e 'set results to search for "rainbow"' \
+	  -e "set wanted to {$$filelist}" \
+	  -e 'set toExport to {}' \
+	  -e 'repeat with p in results' \
+	  -e 'if wanted contains (filename of p) then set end of toExport to p' \
+	  -e 'end repeat' \
+	  -e 'if (count of toExport) > 0 then' \
+	  -e "export toExport to POSIX file \"$$(pwd)/$(RAW)\" with using originals" \
+	  -e 'end if' \
+	  -e 'end tell'
 	@$(MAKE) update
 
 deploy: scan
